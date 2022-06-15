@@ -4,7 +4,9 @@ const random = require('canvas-sketch-util/random');
 
 
 const settings = {
-  dimensions: [1080, 1080]
+  dimensions: '12r',
+  pixelsPerInch: 300,
+  units: 'in'
 };
 
 /*
@@ -36,7 +38,7 @@ const sketch = () => {
 
 
 
-    // Draw the canvas.
+    // Draw the canvas.inder
     // context.fillStyle = '#d7263d';
     // context.fillRect(0, 0, width, height);
 
