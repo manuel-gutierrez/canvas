@@ -12,7 +12,7 @@ const sketch = ({ context, width, height }) => {
   // hold the points. 
   const points = []
   // Number of points
-  const numberOfPoints = 20;
+  const numberOfPoints = 6;
 
 
   for (let index = 0; index < numberOfPoints; index++) {
@@ -29,6 +29,7 @@ const sketch = ({ context, width, height }) => {
       point.updatePosition();
       point.edgeContain(width, height);
       point.collide(points, context);
+      point.lineBetweenToPoints(context, points)
       point.drawPoint(context);
     }
     );
@@ -62,7 +63,14 @@ class Point {
     this.position.y += this.velocity.y;
   }
 
-  // TODO : Implement the same thing but with triangles.
+  drawLine(context, target, lineWidht) {
+    context.lineWidth = lineWidht;
+    context.beginPath();
+    context.moveTo(this.position.x, this.position.y);
+    context.lineTo(target.x, target.y);
+    context.stroke();
+    context.restore();
+  }
   drawPoint(context) {
     context.beginPath();
     context.save();
@@ -72,16 +80,15 @@ class Point {
     context.fill();
     context.restore();
   }
-
-  edgeContain(width, height) {
-    if (this.position.x <= 0 || this.position.x >= width) this.velocity.x *= -1;
-    if (this.position.y <= 0 || this.position.y >= height) this.velocity.y *= -1;
-  }
-  // Not working. 
-
+  // Chage the velocity vector by x value
   changeVelocity(value) {
     const newVelocity = new Vector(this.velocity.x *= value, this.velocity.y *= value)
     return newVelocity;
+  }
+  //bounce when it touches the edge.
+  edgeContain(width, height) {
+    if (this.position.x <= 0 || this.position.x >= width) this.velocity.x *= -1;
+    if (this.position.y <= 0 || this.position.y >= height) this.velocity.y *= -1;
   }
 
   collide(points) {
@@ -92,7 +99,6 @@ class Point {
     let data = points.filter(point => this.id !== point.id);
 
     data.forEach(otherPoint => {
-
       // Calculate the distance between two centres.
       const distance = this.position.getDistance(otherPoint.position);
       // Calculate the sum of the radius
@@ -102,7 +108,14 @@ class Point {
         otherPoint.changeVelocity(-1);
         this.changeVelocity(-1);
       }
-
+    })
+  }
+  // Draw a line based on the distance between to points.
+  lineBetweenToPoints(context, points) {
+    let data = points.filter(point => this.id !== point.id);
+    data.forEach(point => {
+      const dist = this.position.getDistance(point.position);
+      this.drawLine(context, point.position, math.mapRange(dist, 0, 200, 12, 0));
     })
   }
 }
