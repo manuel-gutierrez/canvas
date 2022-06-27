@@ -4,9 +4,9 @@ const random = require('canvas-sketch-util/random');
 
 
 const settings = {
-  dimensions: '12r',
-  pixelsPerInch: 300,
-  units: 'in'
+  dimensions: [20, 20], // 20x20 cm
+  units: 'cm',
+  pixelsPerInch: 300
 };
 
 /*
@@ -21,7 +21,7 @@ const sketch = () => {
   return ({ context, width, height }) => {
 
     // Margin in inches
-    const margin = 1 / 4;
+    const margin = 1 / 189;
 
     // Off-white background
     context.fillStyle = 'hsl(0, 0%, 0%)';
@@ -62,14 +62,14 @@ const sketch = () => {
     So 12 iterations means that the a slice will be 
     drawn every 30 degrees.
     */
-    const iterations = 50;
+    const iterations = 45;
 
     //To use the context.rotation we need to covert this to RAD.  
     const slice = math.degToRad(360 / iterations);
 
     // Circle minimum Radius, for the trompet.
     // TO DO: Play with the radius to create somenthing like a cone. 
-    const radius = width * .3;
+    const radius = width * .35;
 
     // New Origins and Angles to transform the origin.
     let x, y, angle;
@@ -80,8 +80,8 @@ const sketch = () => {
       context.translate(x, y);
       context.beginPath();
       context.rotate(-angle);
-      context.scale(random.range(0.1, 1.9), random.range(0.1, 0.9));
-      context.rect(w * 0.5, random.range(0, h * 0.5), w, h);
+      context.scale(random.range(0.1, 1.9), random.range(0.01, 0.9));
+      context.rect(w * 0.5, random.range(0, h * 0.3), w, h);
       context.fill();
       context.restore();
     };
@@ -90,9 +90,9 @@ const sketch = () => {
       context.save();
       context.translate(cx, cy);
       context.rotate(-angle);
-      context.lineWidth = random.range(5, 10);
+      context.lineWidth = random.range(0.01, 0.15);
       context.beginPath();
-      context.arc(0, 0, radius * random.range(0.2, 1.3), slice * random.range(1, -9), slice * random.range(1, 5));
+      context.arc(0, 0, radius * random.range(0.1, 1.2), slice * random.range(1, -9), slice * random.range(1, 3));
       context.fill();
       context.stroke();
       context.restore();
@@ -102,7 +102,7 @@ const sketch = () => {
     function linesFromCenter(cx, cy) {
       context.beginPath();
       context.moveTo(cx, cy);
-      context.lineWidth = random.range(0.1, 3);
+      context.lineWidth = random.range(0.01, 0.09);
       context.lineTo(x, y);
       context.stroke();
     }

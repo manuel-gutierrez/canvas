@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/manuel-gutierrez/canvas#readme",
   "dependencies": {
-    "canvas-sketch": "^0.7.5"
+    "canvas-sketch": "^0.7.5",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "canvas-sketch-util": "^1.10.0"
