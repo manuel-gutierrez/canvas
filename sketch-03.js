@@ -37,7 +37,7 @@ canvasSketch(({ context, width, height, playhead }) => {
   return ({ context, width, height, playhead }) => {
     context.fillStyle = "#f1faee";
     context.fillRect(0, 0, width, height);
-    // Animate the cirles
+    // Animate the circles
     circles.forEach((circle) => {
       circle.update();
       circle.wrap(width, height); // pacman mode
@@ -59,8 +59,6 @@ canvasSketch(({ context, width, height, playhead }) => {
           if (d < minDistanceBetweenCircles) {
             // draw a line between the two elements.
             element.drawLine(context, nextElement, d);
-          } else {
-            continue;
           }
         }
       }
@@ -106,6 +104,7 @@ class Circle {
     context.stroke();
     context.restore();
   }
+
   drawLine(context, element, distance) {
     context.beginPath();
     context.lineWidth = math.mapRange(
@@ -141,7 +140,7 @@ class Circle {
 
   // logs position.
   position() {
-    console.log("Pos x:" + this.x, "Pos y:" + this.y);
+    console.log(`Pos x:${this.x}`, `Pos y:${this.y}`);
   }
 }
 

@@ -22,8 +22,6 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "canvas-sketch-util": "^1.10.0",
-    "eslint": "^8.29.0",
-    "eslint-config-google": "^0.14.0"
+    "canvas-sketch-util": "^1.10.0"
   }
 }
