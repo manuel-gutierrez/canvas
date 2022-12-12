@@ -34,7 +34,6 @@ const sketch = () => {
 		context.fillStyle = fill;
 		context.fillRect(margin, margin, width - margin * 2, height - margin * 2);
 
-		// Draw the canvas.inder
 		// context.fillStyle = '#d7263d';
 		// context.fillRect(0, 0, width, height);
 
@@ -63,8 +62,8 @@ const sketch = () => {
 		//To use the context.rotation we need to covert this to RAD.
 		const slice = math.degToRad(360 / iterations);
 
-		// Circle minimum Radius, for the trompet.
-		// TO DO: Play with the radius to create somenthing like a cone.
+		// Circle minimum Radius, for the trumpet.
+		// TO DO: Play with the radius to create something like a cone.
 		const radius = width * 0.35;
 
 		// New Origins and Angles to transform the origin.
@@ -111,7 +110,7 @@ const sketch = () => {
 		}
 
 		for (let i = 0; i < iterations; i++) {
-			// Set the angle to the first point in the cirle.
+			// Set the angle to the first point in the circle.
 			angle = slice * i;
 
 			// Define position in the plane.
@@ -122,7 +121,7 @@ const sketch = () => {
 			/* 
       First block: 
       Draw some random rectangles around a circle, 
-      with diferent sizes. 
+      with different sizes. 
       */
 			linesFromCenter(cx, cy);
 			randomArc(cx, cy, angle);
