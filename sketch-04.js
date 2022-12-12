@@ -46,8 +46,7 @@ const sketch = () => {
 
 			// x,y Position of the cell
 			let x = col * grid.cell.width;
-			console.log("🚀 ~ file: sketch-04.js:54 ~ return ~ x", x);
-			let y = row * grid.cell.height; // Horizontal line.
+			y = row * grid.cell.height; // Horizontal line.ine.
 
 			// Reduce the Area of the cell so they do not overlap.
 			const w = grid.cell.width * 0.9;
