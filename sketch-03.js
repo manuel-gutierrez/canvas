@@ -23,7 +23,7 @@ const numberOfCirclesInScreen = 20;
 const maxV = 10.3;
 const minV = -2.3;
 
-canvasSketch(({ context, width, height, playhead }) => {
+canvasSketch(({ context, width, height }) => {
 	// Variables
 	const randomXRangeLimit = width * 0.9;
 	const randomYRangeLimit = height * 0.9;
@@ -46,7 +46,6 @@ canvasSketch(({ context, width, height, playhead }) => {
 		});
 		drawLineBetweenCircles();
 
-		// eslint-disable-next-line require-jsdoc
 		function drawLineBetweenCircles() {
 			// Start with first Element.
 			for (let index = 0; index < circles.length; index++) {

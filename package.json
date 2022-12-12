@@ -19,6 +19,7 @@
   "homepage": "https://github.com/manuel-gutierrez/canvas#readme",
   "dependencies": {
     "canvas-sketch-cli": "^1.11.20",
+    "rome": "^11.0.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
