@@ -2,59 +2,77 @@ const canvasSketch = require("canvas-sketch");
 
 /*
 Exercise: Trying to create a circle that expands and contracts based on the BPM.
-The equation that calculates the radius is:
-radius = ((Math.sin(timePassed * (bpm / 60000) * 2 * Math.PI) + 1) / 2) * (maxRadius - minRadius) + minRadius;
-The variables are:
-The timePassed variable is the amount of time that has passed since the animation started.
-The bpm variable is the desired beats per minute of the animation.
-(bpm / 60000) is used to convert the BPM value to a value in beats per second.
-Math.sin(timePassed * (bpm / 60000) * 2 * Math.PI) is used to create a sine wave that oscillates between -1 and 1, where the frequency of the oscillation is determined by the BPM value. The oscillation is also scaled by the timePassed variable.
-(Math.sin(timePassed * (bpm / 60000) * 2 * Math.PI) + 1) / 2 is used to shift the values of the sine wave from -1 to 1 to 0 to 1.
-(maxRadius - minRadius) is the range of the radius from the minimum value to the maximum value.
-((Math.sin(timePassed * (bpm / 60000) * 2 * Math.PI) + 1) / 2) * (maxRadius - minRadius) this gives the radius value which oscillates between the minRadius and maxRadius.
-+ minRadius is used to add the minimum radius value to the oscillating radius value, so that the final radius value is within the desired range.    
+
+Parameters to play with:
+
+	timePassed: This value represents the time elapsed in milliseconds. As time passes, the value of timePassed increases, which results in the oscillation of the equation.
+
+	bpmInterval: This value represents the time interval between each beat in milliseconds. The greater the value of bpmInterval, the slower the oscillation of the equation.
+
+	RADIAN: This value is a constant representing the number of radians in a circle, which is 2 * Math.PI. It affects the frequency of the oscillation but not its magnitude.
+
+By changing the values of timePassed, bpmInterval, and/or RADIAN, you can control the oscillation of the equation and affect the waveform that it generates.
+
+
+
 */
 
 const settings = {
 	dimensions: [1020, 1080],
-	fps: 30,
-	duration: 4,
+	duration: 200,
+	animate: true,
 };
+const RADIAN = 2 * Math.PI; // 360 degrees or full circle.
 
 const sketch = ({ context, width, height }) => {
-	let bpm = 6;
-	let radius = 60;
-	let maxRadius = 100;
-	let minRadius = 40;
-	let startTime = Date.now();
+	const bpm = 6;
+	const bpmInterval = bpm / 60000; // The time interval between each beat in milliseconds
+	const maxRadius = 100;
+	const minRadius = 40;
 	const backgroundColor = "#f2f2f2";
 
-	function animate() {
+	let radius = 60;
+	let startTime = Date.now();
+
+	return ({ context, width, height }) => {
 		// Get the current time
 		let currentTime = Date.now();
 		// Calculate the time passed since the animation started
 		let timePassed = currentTime - startTime;
-		// Calculate the current radius based on the BPM
-		radius =
-			((Math.sin(timePassed * (bpm / 60000) * 2 * Math.PI) + 1) / 2) *
-				(maxRadius - minRadius) +
-			minRadius;
+
+		/* The equation let wave = (Math.sin(timePassed * bpmInterval * RADIAN) + 1) / 2 scales the output of the Math.sin()
+		function from a range of [-1, 1] to [0, 1], which is more useful in many applications, such as audio or graphics.
+		The wave variable now represents a value between 0 and 1 that can be used to control the amplitude of a waveform.*/
+
+		let wave = (Math.sin(timePassed * bpmInterval * RADIAN) + 1) / 2;
+		radius = wave * (maxRadius - minRadius) + minRadius;
+
 		// Draw the circle
 		context.clearRect(0, 0, width, height);
 		// Set the background color
 		context.fillStyle = backgroundColor;
 		context.fillRect(0, 0, width, height);
 		// Draw the circle
-		context.beginPath();
-		context.arc(width / 2, height / 2, radius, 0, 2 * Math.PI);
-		context.fillStyle = "#0077be"; // Caribbean ocean blue color
-		context.fill();
-		// Request the next frame
-		requestAnimationFrame(animate);
-	}
+		drawFilledCircle(width / 2, height / 2, radius, "#0077be");
+	};
 
-	// Start the animation
-	animate();
+	/* 
+	Helper function to draw a circle with a fill color a given radius in a x,y position.
+	The circle is centered in the x,y position.
+	
+	Parameters:
+		x: The x position of the circle
+		y: The y position of the circle
+		radius: The radius of the circle	
+		color: The fill color of the circle
+	*/
+
+	function drawFilledCircle(x, y, radius, color) {
+		context.beginPath();
+		context.arc(x, y, radius, 0, RADIAN);
+		context.fillStyle = color;
+		context.fill();
+	}
 };
 
 canvasSketch(sketch, settings);
