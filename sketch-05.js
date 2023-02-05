@@ -29,7 +29,7 @@ const sketch = ({ context, width, height }) => {
 	const bpmInterval = bpm / 60000; // The time interval between each beat in milliseconds
 	const maxRadius = 100;
 	const minRadius = 40;
-	const backgroundColor = "#f2f2f2";
+	const backgroundColor = "#495867";
 
 	let radius = 60;
 	let startTime = Date.now();
@@ -40,9 +40,11 @@ const sketch = ({ context, width, height }) => {
 		// Calculate the time passed since the animation started
 		let timePassed = currentTime - startTime;
 
-		/* The equation let wave = (Math.sin(timePassed * bpmInterval * RADIAN) + 1) / 2 scales the output of the Math.sin()
+		/* 
+		The equation let wave = (Math.sin(timePassed * bpmInterval * RADIAN) + 1) / 2 scales the output of the Math.sin()
 		function from a range of [-1, 1] to [0, 1], which is more useful in many applications, such as audio or graphics.
-		The wave variable now represents a value between 0 and 1 that can be used to control the amplitude of a waveform.*/
+		The wave variable now represents a value between 0 and 1 that can be used to control the amplitude of a waveform.
+		*/
 
 		let wave = (Math.sin(timePassed * bpmInterval * RADIAN) + 1) / 2;
 		radius = wave * (maxRadius - minRadius) + minRadius;
@@ -53,7 +55,7 @@ const sketch = ({ context, width, height }) => {
 		context.fillStyle = backgroundColor;
 		context.fillRect(0, 0, width, height);
 		// Draw the circle
-		drawFilledCircle(width / 2, height / 2, radius, "#0077be");
+		drawFilledCircle(width / 2, height / 2, radius, "#CCCCCC");
 	};
 
 	/* 
