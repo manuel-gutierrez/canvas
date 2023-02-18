@@ -64,7 +64,7 @@ const sketch = () => {
 
 		// Circle minimum Radius, for the trumpet.
 		// TO DO: Play with the radius to create something like a cone.
-		const radius = width * 0.35;
+		const radius = width * 0.45;
 
 		// New Origins and Angles to transform the origin.
 		let x;
