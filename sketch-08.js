@@ -1,15 +1,16 @@
 /**
  * Third attempt on breathing.
  * Idea: Use two circles that act as WAVES making them intersect.
- * @author Manuel Gutierrez (@manuelgutierrez)
+ * @author Manuel Gutierrez @manuel-gutierrez
  */
 
 const canvasSketch = require("canvas-sketch");
+const BPM = require("./utils/bpm");
+const bpm = BPM.bpmInit(6);
 
 const settings = {
-	dimensions: [800, 600],
+	dimensions: [1024, 1024],
 	animate: false,
-	duration: 4,
 };
 
 class Wave {
@@ -39,18 +40,8 @@ const sketch = () => {
 			{ x: width - 200, y: -400 }, // control point 2
 			{ x: width, y: 0 }, // ending point
 		];
-		fillCanvas(context, CANVAS_BACKGROUND_COLOR);
-		// Draw the waves based on the number of colors.
-		WAVES_COLORS.forEach((color, i) => {
-			context.save();
-			context.translate(0, height / 2 + i * 100);
-			// WAVE_POINTS.forEach((point, index) => {
-			// 	drawPoint(context, point.x, point.y, 10, "red");
-			// });
-			const WAVE = new Wave(WAVE_POINTS, 4, color);
-			drawWave(context, WAVE);
-			context.restore();
-		});
+		console.log(bpm);
+		drawPoint(context, width / 2, (height / 2) * bpm.getDataPoint(), 10, "red");
 	};
 	function drawWave(context, wave) {
 		const POINTS = wave.points;
