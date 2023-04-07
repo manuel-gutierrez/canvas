@@ -5,7 +5,7 @@
  * @param {number} bpm - The BPM to be translated.
  * @returns {number} - The BPM translated to a value between 0 and 1.
  * */
-const math = require("canvas-sketch-util/math");
+const min_bpm = 1;
 class _BPM {
 	constructor(bpm) {
 		this.startTime = Date.now();

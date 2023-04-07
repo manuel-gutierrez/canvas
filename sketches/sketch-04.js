@@ -35,7 +35,6 @@ const sketch = () => {
 
 		// Calculate cells property.
 		grid.cellsNumber = grid.cols * grid.rows;
-
 		grid.cell.width = grid.width / grid.cols;
 		grid.cell.height = grid.height / grid.rows;
 
@@ -59,7 +58,7 @@ const sketch = () => {
 			context.translate(grid.xMargin, grid.yMargin); //
 			context.translate(grid.cell.width * 0.5, grid.cell.height * 0.5); // translate to cell center
 			drawLine(w * -0.5, 0, w * 0.5, 0, context); // Horizontal line.
-			drawLine(0, h * -0.5, 0, h * 0.5, context); // Horizontal line.
+			drawLine(0, h * -0.5, 0, h * 0.5, context); // Vertical line.
 			context.restore();
 		}
 	};
